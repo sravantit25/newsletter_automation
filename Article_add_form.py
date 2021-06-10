@@ -8,10 +8,11 @@ import email_validator
 
 class ArticleForm(FlaskForm):
     "Class for articles form"
-    category = SelectField('Select_Category', choices=["Test1","Test2","Test 3"])
-    url = SelectField('URL for article', choices=["Test1","Test2","Test 3"])
+    categories=["Select Category","Comic","Articles from this week", "Articles from past","Automation corner"]
+    category = SelectField('Select_Category', choices=categories,validators=[DataRequired()],default="Select Category")
+    url = SelectField("Select a url", validate_choice=False)
     description = TextAreaField('Description',validators=[DataRequired()])
-    reading_time = StringField('Reading Time',validators=[DataRequired()])
+    reading_time = StringField('Reading Time')
     add_more = SubmitField('Add More Articles')
     opener = TextAreaField('opener')
     schedule = SubmitField('Schedule')

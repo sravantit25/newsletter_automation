@@ -10,6 +10,7 @@ class ArticleForm(FlaskForm):
     "Class for articles form"
     categories=["Select Category","Comic","Articles from this week", "Articles from past","Automation corner"]
     category = SelectField('Select_Category', choices=categories,validators=[DataRequired()],default="Select Category")
+    title = StringField('Title')
     url = SelectField("Select a url", validate_choice=False)
     description = TextAreaField('Description')
     reading_time = StringField('Reading Time')

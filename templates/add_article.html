@@ -14,6 +14,10 @@
                 {{form.url(id="url")}}
             </div>
             <div class="form-group">
+                {{form.title.label(class="col-sm-1 col-form-label")}}
+                {{form.title(id="title")}}
+            </div>
+            <div class="form-group">
                 {{form.description.label(class="col-sm-1 col-form-label")}}
                 {{form.description(id="description")}}
             </div>
@@ -46,10 +50,11 @@
     </form>
 
     <script>
-        let state_category= document.getElementById('Category');
+        let state_category = document.getElementById('Category');
         let state_url = document.getElementById('url');
         let state_description = document.getElementById('description');
         let state_readingtime = document.getElementById('reading_time');
+        let state_title = document.getElementById('title');
 
         state_category.onchange = function(){
             category = state_category.value;
@@ -68,6 +73,12 @@
 
         state_url.onchange = function(){
             url=state_url.value;
+            fetch('/title/'+ url).then(function(response){
+                response.json().then(function(data){
+                    state_title.value=data;
+                })
+            });
+
             fetch('/description/'+ url).then(function(response){
                 response.json().then(function(data){
                     state_description.value=data;

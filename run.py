@@ -21,12 +21,11 @@ def Add_newsletter():
     if form.validate_on_submit():
         subject = form.subject.data
 
-        file1 = open("replica_db1.txt", "a")  # append mode
+        #To be replaced by database
+        file1 = open("replica_db1.txt", "a")
         file1.write("%s"%(subject))
         file1.close()
 
-        flash(f'Form submitted successfully', 'success')
-        return redirect(url_for("index"))
         flash(f'Form submitted successfully', 'success')
         return redirect(url_for("Add_articles"))
     return render_template('add_newsletter.html',form=form)
@@ -34,10 +33,10 @@ def Add_newsletter():
 @app.route("/add-articles",methods=["GET","POST"])
 def Add_articles():
     "This page contains the form where user can add articles"
-    url_data=""
+    url_data = ""
     form = ArticleForm()
     for url in articles_added:
-        url_data += str(url)+ "\n"
+        url_data += str(url) + "\n"
         form.added_articles.data = url_data
 
     if form.validate_on_submit():
@@ -45,6 +44,7 @@ def Add_articles():
         url= form.url.data
         description=form.description.data
         reading_time=form.reading_time.data
+        title = form.title.data
         opener= form.opener.data
         preview_text = form.preview_text.data
 
@@ -53,8 +53,9 @@ def Add_articles():
                 flash(f'Please select category')
                 return redirect(url_for("Add_articles"))
             else:
-                file1 = open("replica_db.txt", "a")  # append mode
-                file1.write("%s\t%s\t%s\t%s\n"%(category,url,description,reading_time))
+                #To be replaced by database
+                file1 = open("replica_db.txt", "a")
+                file1.write("%s\t%s\t%s\t%s\t%s\n"%(category,url,title,description,reading_time))
                 file1.close()
 
                 articles_added.append(url)
@@ -63,10 +64,13 @@ def Add_articles():
         if form.schedule.data:
             if opener:
                 if preview_text:
+                    #To be replace by database
                     file1 = open("replica_db1.txt", "a")  # append mode
                     file1.write("\t%s\t%s\n"%(opener,preview_text))
                     file1.close()
+
                     flash(f'Form submitted successfully', 'success')
+                    articles_added.clear()
                     return redirect(url_for("index"))
                 else:
                     flash(f'Enter preview text')
@@ -79,6 +83,7 @@ def Add_articles():
 def url(category):
     "This page fetches url based on category selected"
 
+    #Data to be replace from DB
     if category == "Comic":
         url = ["comic_url1","comic_url2"]
     elif category == "Articles from this week":
@@ -94,10 +99,11 @@ def url(category):
 def description(url):
     "This page fetches the article description based on url selected"
 
+    #Data to be replaced from DB
     if url=="comic_url1":
-        description = "Test comic1"
+        description = ""
     if url=="comic_url2":
-        description = "Test comic 2"
+        description = ""
     if url=="thisweek_url1":
         description = "this week article 1"
     if url=="thisweek_url2":
@@ -113,6 +119,11 @@ def description(url):
 def reading_time(url):
     "This article fetched reading time based on url selected"
 
+    #Data to be replace from DB
+    if url=="comic_url1":
+        reading_time = ""
+    if url=="comic_url2":
+        reading_time = ""
     if url=="thisweek_url1":
         reading_time = "10 mins"
     if url=="thisweek_url2":
@@ -123,6 +134,26 @@ def reading_time(url):
         reading_time = "40 mins"
 
     return jsonify(reading_time)
+
+@app.route("/title/<url>")
+def title(url):
+    "This article fetched reading time based on url selected"
+
+    #Data to be replace from DB
+    if url=="comic_url1":
+        title = "Comic 1"
+    if url=="comic_url2":
+        title = "Comic 2"
+    if url=="thisweek_url1":
+        title = "This week Article 1"
+    if url=="thisweek_url2":
+        title = "This week Article 2"
+    if url=="past_url1":
+        title = "Past week Article 1"
+    if url=="past_url2":
+        title = "Past week Article 2"
+
+    return jsonify(title)
 
 
 if __name__ == '__main__':

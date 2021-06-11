@@ -3,7 +3,8 @@ from flask import render_template
 from Newsletter_add_form import Newsletter_AddForm
 from Article_add_form import ArticleForm
 from werkzeug.datastructures import MultiDict
-import requests
+
+articles_added=[]
 
 app = Flask(__name__)
 
@@ -19,7 +20,13 @@ def Add_newsletter():
     form = Newsletter_AddForm()
     if form.validate_on_submit():
         subject = form.subject.data
-        preview_text = form.preview_text
+
+        file1 = open("replica_db1.txt", "a")  # append mode
+        file1.write("%s"%(subject))
+        file1.close()
+
+        flash(f'Form submitted successfully', 'success')
+        return redirect(url_for("index"))
         flash(f'Form submitted successfully', 'success')
         return redirect(url_for("Add_articles"))
     return render_template('add_newsletter.html',form=form)
@@ -27,8 +34,11 @@ def Add_newsletter():
 @app.route("/add-articles",methods=["GET","POST"])
 def Add_articles():
     "This page contains the form where user can add articles"
-
+    url_data=""
     form = ArticleForm()
+    for url in articles_added:
+        url_data += str(url)+ "\n"
+        form.added_articles.data = url_data
 
     if form.validate_on_submit():
         category=form.category.data
@@ -36,6 +46,7 @@ def Add_articles():
         description=form.description.data
         reading_time=form.reading_time.data
         opener= form.opener.data
+        preview_text = form.preview_text.data
 
         if form.add_more.data:
             if form.category.data=="Select Category":
@@ -45,12 +56,21 @@ def Add_articles():
                 file1 = open("replica_db.txt", "a")  # append mode
                 file1.write("%s\t%s\t%s\t%s\n"%(category,url,description,reading_time))
                 file1.close()
+
+                articles_added.append(url)
                 return redirect(url_for("Add_articles"))
 
         if form.schedule.data:
             if opener:
-                flash(f'Form submitted successfully', 'success')
-                return redirect(url_for("index"))
+                if preview_text:
+                    file1 = open("replica_db1.txt", "a")  # append mode
+                    file1.write("\t%s\t%s\n"%(opener,preview_text))
+                    file1.close()
+                    flash(f'Form submitted successfully', 'success')
+                    return redirect(url_for("index"))
+                else:
+                    flash(f'Enter preview text')
+
             else:
                 flash(f'Please enter the opener')
     return render_template('add_article.html',form=form)

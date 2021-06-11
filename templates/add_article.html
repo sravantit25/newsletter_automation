@@ -22,13 +22,22 @@
                 {{form.reading_time(id="reading_time")}}
             </div>
             <div class="form-group">
-                {{form.add_more(class="btn btn-outline-info")}}
+                {{form.add_more()}}
+            </div>
+            <div class="form-group">
+                {{form.added_articles.label(class="col-sm-1 col-form-label")}}
+                {{form.added_articles}}
             </div>
         </fieldset>
 
             <div class="form-group">
                 {{form.opener.label(class="col-sm-1 col-form-label")}}
                 {{form.opener}}
+            </div>
+
+            <div class="form-group">
+                {{form.preview_text.label(class="col-sm-1 col-form-label")}}
+                {{form.preview_text}}
             </div>
 
             <div class="form-group">

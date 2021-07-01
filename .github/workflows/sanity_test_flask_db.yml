@@ -36,4 +36,4 @@ jobs:
         DB_PASSWORD: TestQxf2!
       run: |
         mysql --version
-        mysql --host 3.136.56.183 -u qxf2_user -p TestQxf2! -e "SHOW DATABASES"
+        mysql --host 3.136.56.183 -u qxf2_user -pTestQxf2! -e "SHOW DATABASES"

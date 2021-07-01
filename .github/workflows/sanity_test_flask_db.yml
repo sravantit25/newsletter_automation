@@ -22,7 +22,6 @@ jobs:
           --health-retries=3
 
     steps:
-    - shell: bash
     - name: Test MySQL connection
       env:
         DB_CONNECTION: mysql
@@ -32,4 +31,5 @@ jobs:
       run: |
         mysql --version
         mysql --host 3.136.56.183 -u"$DB_USER" -p"$DB_PASSWORD" -e "SHOW DATABASES"
+      shell: bash
 

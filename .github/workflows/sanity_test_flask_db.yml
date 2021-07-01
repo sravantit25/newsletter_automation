@@ -14,11 +14,10 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_DATABASE: newsletter_automation
-          MYSQL_USER: root
-          MYSQL_PASSWORD: qxf2_newsletter
+          MYSQL_ROOT_PASSWORD: qxf2_newsletter
         ports:
           - 33306:3306
-        options: <-
+        options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
           --health-timeout=5s

@@ -26,10 +26,10 @@ jobs:
       env:
         DB_CONNECTION: mysql
         DB_DATABASE: newsletter_automation
-        # DB_USER: ${{ secrets.NEWSLETTER_USER }}
-        # DB_PASSWORD: ${{ secrets.NEWSLETTER_USER_PASS }}
+        DB_USER: ${{ secrets.NEWSLETTER_USER }}
+        DB_PASSWORD: ${{ secrets.NEWSLETTER_USER_PASS }}
       run: |
         mysql --version
-        mysql --host 3.136.56.183 -u${{ secrets.NEWSLETTER_USER }} -p${{ secrets.NEWSLETTER_USER_PASS }} -e "SHOW DATABASES"
+        echo mysql --host 3.136.56.183 -u${{ secrets.NEWSLETTER_USER }} -p${{ secrets.NEWSLETTER_USER_PASS }} -e "SHOW DATABASES"
       shell: bash
 

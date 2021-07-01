@@ -38,5 +38,4 @@ jobs:
         DB_PASSWORD: TestQxf2!
       run: |
         mysql --version
-        sudo apt-get install -y mysql-client
         mysql --host 3.136.56.183 --port -u qxf2_user -p TestQxf2! -e "SHOW DATABASES"

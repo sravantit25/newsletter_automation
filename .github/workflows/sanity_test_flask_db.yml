@@ -27,8 +27,8 @@ jobs:
         DB_CONNECTION: mysql
         DB_DATABASE: newsletter_automation
         DB_PORT: 33306
-        DB_USER: {{secrets.NEWSLETTER_USER}}
-        DB_PASSWORD: {{secrets.NEWSLETTER_USER_PASS}}
+        DB_USER: {{ secrets.NEWSLETTER_USER }}
+        DB_PASSWORD: {{ secrets.NEWSLETTER_USER_PASS }}
       run: |
         mysql --version
-        mysql --host 3.136.56.183 -u q$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES"
+        mysql --host 3.136.56.183 -u q$env:DB_USER -p$env:DB_PASSWORD -e "SHOW DATABASES"

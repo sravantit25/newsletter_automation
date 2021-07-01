@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - sanity_test_flask_db
-    paths:
-      - 'sanity_test_flask_db/**'
+    # paths:
+    #   - 'sanity_test_flask_db/**'
 jobs:
   build:
     runs-on: ubuntu-latest

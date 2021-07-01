@@ -15,8 +15,6 @@ jobs:
         env:
           MYSQL_DATABASE: newsletter_automation
           MYSQL_ROOT_PASSWORD: qxf2_newsletter
-        ports:
-          - 33306:3306
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
@@ -38,4 +36,4 @@ jobs:
         DB_PASSWORD: TestQxf2!
       run: |
         mysql --version
-        mysql --host 3.136.56.183 --port 33306 -u qxf2_user -p TestQxf2! -e "SHOW DATABASES"
+        mysql --host 3.136.56.183 -u qxf2_user -p TestQxf2! -e "SHOW DATABASES"

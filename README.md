@@ -14,4 +14,4 @@ This project is to automate the process of creating the weekly Qxf2 newsletter. 
  ## Run the project locally
     export FLASK_APP=run.py
     flask run
-
+![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
